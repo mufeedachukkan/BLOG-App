@@ -5,7 +5,7 @@ import User from "../model/User";
 export const getAllBlogs = async (req, res, next) => {
     let blogs;
     try {
-        blogs = await Blog.find()
+        blogs = await Blog.find().populate('user')
     } catch (err) {
         return console.log(err);
     }
@@ -70,7 +70,7 @@ export const getById = async (req, res, next) => {
     const id = req.params.id;
     let blog;
     try {
-        blog = await Blog.findById(id);
+        blog = await Blog.findById(id)
     } catch (err) {
         return console.log(err)
     }
@@ -107,5 +107,5 @@ export const getByUserId=async(req,res,next)=>{
     if(!userBlogs){
         return res.status(500).json({ message: "No Blog found" })
     }
-    return res.status(200).json({ blogs:userBlogs })
+    return res.status(200).json({ user:userBlogs })
 }
